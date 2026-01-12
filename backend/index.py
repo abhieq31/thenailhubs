@@ -5,4 +5,5 @@ from mangum import Mangum
 from main import app
 
 # Wrap FastAPI app with Mangum for Vercel/AWS Lambda compatibility
-handler = Mangum(app, lifespan="off")
+# Use auto lifespan to handle startup events properly
+handler = Mangum(app, lifespan="auto")
