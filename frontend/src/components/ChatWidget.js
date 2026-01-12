@@ -206,9 +206,9 @@ function ChatWidget({ isOpen, onClose }) {
             <button
               key={index}
               className="option-button"
-              onClick={() => handleOptionClick(option)}
+              onClick={() => handleOptionClick(option.value || option)}
             >
-              {option}
+              {option.label || option}
             </button>
           ))}
         </div>

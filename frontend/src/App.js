@@ -4,12 +4,18 @@ import './App.css';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setMobileMenuOpen(false); // Close mobile menu after navigation
     }
+  };
+
+  const openWhatsAppBooking = () => {
+    window.open('https://wa.me/917698235501?text=Hello%2C%20I%20would%20like%20to%20book.%0A%0AName%3A%0ADate%3A%0ATime%3A%0AHow%20many%20people%3A', '_blank');
   };
 
   return (
@@ -21,15 +27,26 @@ function App() {
             <img src="/logo.svg" alt="The Nail Hubs" className="logo-image" />
             <span className="salon-name">The Nail Hubs</span>
           </div>
-          <ul className="nav-menu">
+
+          {/* Mobile Menu Button */}
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? '✕' : '☰'}
+          </button>
+
+          {/* Navigation Menu */}
+          <ul className={`nav-menu ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <li><a href="#home" onClick={() => scrollToSection('home')}>Home</a></li>
             <li><a href="#services" onClick={() => scrollToSection('services')}>Services</a></li>
             <li><a href="#gallery" onClick={() => scrollToSection('gallery')}>Gallery</a></li>
             <li><a href="#about" onClick={() => scrollToSection('about')}>About</a></li>
             <li><a href="#contact" onClick={() => scrollToSection('contact')}>Contact</a></li>
             <li>
-              <button className="nav-book-btn" onClick={() => setIsOpen(true)}>
-                Book Now
+              <button className="nav-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
               </button>
             </li>
           </ul>
@@ -49,8 +66,8 @@ function App() {
             Ankleshwar's Premier Luxury Nail Salon
           </p>
           <div className="hero-buttons">
-            <button className="btn-primary" onClick={() => setIsOpen(true)}>
-              📅 Book Appointment
+            <button className="btn-primary" onClick={openWhatsAppBooking}>
+              📱 Book Appointment
             </button>
             <a
               href="https://www.whatsapp.com/channel/0029Vb6wVqy7T8bahzFZwV1d"
@@ -104,8 +121,8 @@ function App() {
                 <li>Quick drying</li>
                 <li>Natural looking finish</li>
               </ul>
-              <button className="service-book-btn" onClick={() => setIsOpen(true)}>
-                Book Now
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
               </button>
             </div>
 
@@ -122,8 +139,8 @@ function App() {
                 <li>Extra durability</li>
                 <li>Perfect for special events</li>
               </ul>
-              <button className="service-book-btn" onClick={() => setIsOpen(true)}>
-                Book Now
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
               </button>
             </div>
 
@@ -139,8 +156,8 @@ function App() {
                 <li>Various lengths available</li>
                 <li>Lightweight feel</li>
               </ul>
-              <button className="service-book-btn" onClick={() => setIsOpen(true)}>
-                Book Now
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
               </button>
             </div>
 
@@ -156,8 +173,8 @@ function App() {
                 <li>Swarovski crystals</li>
                 <li>Long-lasting elegance</li>
               </ul>
-              <button className="service-book-btn" onClick={() => setIsOpen(true)}>
-                Book Now
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
               </button>
             </div>
 
@@ -173,8 +190,8 @@ function App() {
                 <li>Reshape & rebalance</li>
                 <li>Quick & convenient</li>
               </ul>
-              <button className="service-book-btn" onClick={() => setIsOpen(true)}>
-                Book Now
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
               </button>
             </div>
 
@@ -190,8 +207,8 @@ function App() {
                 <li>Reusable options</li>
                 <li>No damage to natural nails</li>
               </ul>
-              <button className="service-book-btn" onClick={() => setIsOpen(true)}>
-                Book Now
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
               </button>
             </div>
           </div>
@@ -490,8 +507,8 @@ function App() {
                   <a href="https://www.whatsapp.com/channel/0029Vb6wVqy7T8bahzFZwV1d" target="_blank" rel="noopener noreferrer" className="social-icon">
                     📢 WhatsApp Channel
                   </a>
-                  <a href="https://wa.me/917698235501" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    💬 Chat on WhatsApp
+                  <a href="https://wa.me/917698235501?text=Hello%2C%20I%20would%20like%20to%20book.%0A%0AName%3A%0ADate%3A%0ATime%3A%0AHow%20many%20people%3A" target="_blank" rel="noopener noreferrer" className="social-icon">
+                    📱 Book on WhatsApp
                   </a>
                 </div>
               </div>
@@ -506,12 +523,10 @@ function App() {
       </footer>
 
       {/* Floating Book Button */}
-      {!isOpen && (
-        <button className="floating-book-button" onClick={() => setIsOpen(true)}>
-          <span className="book-icon">💅</span>
-          <span className="book-text">Book Appointment</span>
-        </button>
-      )}
+      <button className="floating-book-button" onClick={openWhatsAppBooking}>
+        <span className="book-icon">📱</span>
+        <span className="book-text">Book on WhatsApp</span>
+      </button>
 
       {/* Chat Widget */}
       <ChatWidget isOpen={isOpen} onClose={() => setIsOpen(false)} />
