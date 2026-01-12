@@ -296,22 +296,6 @@ function App() {
                 </div>
               </div>
             </div>
-
-            <div className="instagram-cta">
-              <div className="cta-content">
-                <h3>Join Our Community</h3>
-                <p>Follow us for daily nail inspiration, exclusive offers, and behind-the-scenes content</p>
-                <a
-                  href="https://www.instagram.com/thenailhubs/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="instagram-btn"
-                >
-                  <span className="instagram-gradient">📸</span>
-                  <span>Visit @thenailhubs on Instagram</span>
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </section>
