@@ -15,20 +15,20 @@ PHONE = "07698 235501"
 TIMEZONE = ZoneInfo("Asia/Kolkata")
 
 # Operating Hours
-WORKING_DAYS = [0, 1, 2, 3, 4, 5]  # Monday to Saturday (0=Monday, 6=Sunday)
-CLOSED_DAYS = [6]  # Sunday
+WORKING_DAYS = [0, 1, 2, 3, 4, 5, 6]  # All 7 days (0=Monday, 6=Sunday)
+CLOSED_DAYS = []  # Open all days
 OPENING_TIME = time(11, 0)  # 11:00 AM
 CLOSING_TIME = time(18, 0)  # 6:00 PM
 BUFFER_MINUTES = 10
 
 # Services (name -> duration in minutes)
 SERVICES = {
-    "Gel Nails": 60,
-    "Acrylic Nails": 90,
-    "Nail Extensions": 90,
-    "Bridal Nail Art": 120,
+    "Gel Nails": 45,
+    "Acrylic Nails": 45,
+    "Nail Extensions": 45,
+    "Bridal Nail Art": 45,
     "Nail Refill": 45,
-    "Press-on Nails": 30,
+    "Press-on Nails": 45,
 }
 
 # Agent Conversation Settings

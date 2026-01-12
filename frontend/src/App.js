@@ -17,8 +17,9 @@ function App() {
       {/* Navigation */}
       <nav className="navbar">
         <div className="nav-container">
-          <div className="logo">
+          <div className="logo" onClick={() => scrollToSection('home')} style={{cursor: 'pointer'}}>
             <img src="/logo.svg" alt="The Nail Hubs" className="logo-image" />
+            <span className="salon-name">The Nail Hubs</span>
           </div>
           <ul className="nav-menu">
             <li><a href="#home" onClick={() => scrollToSection('home')}>Home</a></li>
@@ -203,7 +204,7 @@ function App() {
             <div className="instagram-header">
               <div className="instagram-profile">
                 <div className="instagram-avatar">
-                  <span className="avatar-icon">💅</span>
+                  <img src="/logo.svg" alt="The Nail Hubs" className="avatar-logo" />
                 </div>
                 <div className="instagram-info">
                   <h3 className="instagram-username">@thenailhubs</h3>
@@ -225,39 +226,30 @@ function App() {
               <div className="embed-notice">
                 <p className="embed-text">
                   <span className="sparkle-icon">✨</span>
-                  Click any card below to view our stunning nail art gallery on Instagram
+                  Latest posts from @thenailhubs
                   <span className="sparkle-icon">✨</span>
                 </p>
               </div>
 
-              <div className="instagram-feed-grid">
-                {[
-                  { emoji: '💅', label: 'Acrylic Nails' },
-                  { emoji: '✨', label: 'Gel Polish' },
-                  { emoji: '💎', label: 'Nail Extensions' },
-                  { emoji: '👰', label: 'Bridal Designs' },
-                  { emoji: '🎨', label: 'Nail Art' },
-                  { emoji: '🌟', label: 'Latest Work' }
-                ].map((item, index) => (
-                  <a
-                    key={index}
-                    href="https://www.instagram.com/thenailhubs/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="instagram-post-card"
-                  >
-                    <div className="post-preview">
-                      <span className="preview-icon">{item.emoji}</span>
-                      <p className="preview-label">{item.label}</p>
-                    </div>
-                    <div className="post-overlay">
-                      <div className="post-content">
-                        <span className="post-icon">📸</span>
-                        <p className="post-cta">View on Instagram</p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
+              {/* Instagram Feed Widget */}
+              <div className="instagram-feed-wrapper">
+                <iframe
+                  src="https://www.instagram.com/thenailhubs/embed"
+                  className="instagram-feed-iframe"
+                  frameBorder="0"
+                  scrolling="no"
+                  allowTransparency="true"
+                  title="Instagram Feed"
+                  style={{
+                    background: 'white',
+                    maxWidth: '100%',
+                    width: '100%',
+                    border: 'none',
+                    overflow: 'hidden',
+                    minHeight: '600px',
+                    borderRadius: '15px'
+                  }}
+                />
               </div>
 
               <div className="instagram-features">

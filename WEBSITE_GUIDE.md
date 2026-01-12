@@ -169,7 +169,7 @@ All text content is in `App.js` - search and replace:
 Replace map placeholder in `App.js`:
 ```jsx
 <iframe
-  src="https://www.google.com/maps/embed?pb=YOUR_EMBED_URL"
+  src="https://maps.app.goo.gl/HctMpevDDNefj2RBA"
   width="100%"
   height="100%"
   style={{border: 0, borderRadius: '15px'}}
@@ -178,12 +178,12 @@ Replace map placeholder in `App.js`:
 />
 ```
 
-Get embed URL from [Google Maps](https://maps.google.com)
+Get embed URL from [Google Maps](https://maps.app.goo.gl/HctMpevDDNefj2RBA)
 
 ### Instagram Integration
 Update the Instagram link in `App.js`:
 ```jsx
-<a href="https://instagram.com/YOUR_HANDLE" ...>
+<a href="https://www.instagram.com/thenailhubs/" ...>
 ```
 
 ## Running the Website

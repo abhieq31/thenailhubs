@@ -208,14 +208,21 @@ class NailHubsAgent:
 
     def handle_phone_input(self, message: str) -> Dict:
         """Handle phone number input and create booking"""
-        # Extract phone number
-        phone = re.sub(r'[^\d+]', '', message)
+        # Extract phone number (digits only)
+        phone = re.sub(r'[^\d]', '', message)
 
-        if len(phone) < 10:
-            return {
-                "message": "Please provide a valid 10-digit phone number.",
-                "state": self.state
-            }
+        # Validate exactly 10 digits
+        if len(phone) != 10:
+            if len(phone) < 10:
+                return {
+                    "message": "Phone number must be exactly 10 digits. Please enter your 10-digit phone number.",
+                    "state": self.state
+                }
+            else:
+                return {
+                    "message": "Phone number must be exactly 10 digits (too many digits entered). Please enter your 10-digit phone number.",
+                    "state": self.state
+                }
 
         self.customer_phone = phone
 
