@@ -53,7 +53,7 @@ function ChatWidget({ isOpen, onClose }) {
       setMessages([
         {
           sender: 'bot',
-          text: 'Sorry, I am having trouble connecting. Please call us at 07698 235501.',
+          text: 'Hi ✨ Welcome to The Nail Hubs! Our online booking system is currently being updated. Please call or WhatsApp us at 07698 235501 to book your appointment. We are open all 7 days from 11 AM to 6 PM!',
           timestamp: new Date(),
         },
       ]);
