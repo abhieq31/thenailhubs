@@ -84,16 +84,20 @@ function App() {
           </div>
           <div className="hero-features">
             <div className="feature-item">
-              <span className="feature-icon">✨</span>
-              <span>Premium Quality</span>
+              <span className="feature-icon">💜</span>
+              <span>Women-Owned Business</span>
             </div>
             <div className="feature-item">
-              <span className="feature-icon">💎</span>
-              <span>Expert Artists</span>
+              <span className="feature-icon">💅</span>
+              <span>Certified Nail Technicians</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">✨</span>
+              <span>Premium International Products</span>
             </div>
             <div className="feature-item">
               <span className="feature-icon">🎨</span>
-              <span>Custom Designs</span>
+              <span>Custom Artistic Designs</span>
             </div>
           </div>
         </div>
