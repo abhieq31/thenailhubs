@@ -110,23 +110,6 @@ function App() {
           </div>
 
           <div className="services-grid">
-            <div className="service-card">
-              <div className="service-icon">💅</div>
-              <h3>Gel Nails</h3>
-              <p className="service-duration">60 minutes</p>
-              <p className="service-description">
-                Long-lasting gel polish with chip-resistant formula and high-gloss finish
-              </p>
-              <ul className="service-features">
-                <li>Up to 3 weeks wear</li>
-                <li>Quick drying</li>
-                <li>Natural looking finish</li>
-              </ul>
-              <button className="service-book-btn" onClick={openWhatsAppBooking}>
-                📱 Book Now
-              </button>
-            </div>
-
             <div className="service-card featured">
               <div className="popular-badge">Most Popular</div>
               <div className="service-icon">✨</div>
@@ -139,6 +122,23 @@ function App() {
                 <li>Custom length & shape</li>
                 <li>Extra durability</li>
                 <li>Perfect for special events</li>
+              </ul>
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
+              </button>
+            </div>
+
+            <div className="service-card">
+              <div className="service-icon">🎨</div>
+              <h3>Nail Art</h3>
+              <p className="service-duration">60-120 minutes</p>
+              <p className="service-description">
+                Creative and intricate nail art designs customized to your style
+              </p>
+              <ul className="service-features">
+                <li>Custom designs</li>
+                <li>Hand-painted artwork</li>
+                <li>Trending styles</li>
               </ul>
               <button className="service-book-btn" onClick={openWhatsAppBooking}>
                 📱 Book Now
@@ -163,50 +163,67 @@ function App() {
             </div>
 
             <div className="service-card">
-              <div className="service-icon">👰</div>
-              <h3>Bridal Nail Art</h3>
-              <p className="service-duration">120 minutes</p>
-              <p className="service-description">
-                Exquisite bridal designs with intricate details for your special day
-              </p>
-              <ul className="service-features">
-                <li>Custom bridal designs</li>
-                <li>Swarovski crystals</li>
-                <li>Long-lasting elegance</li>
-              </ul>
-              <button className="service-book-btn" onClick={openWhatsAppBooking}>
-                📱 Book Now
-              </button>
-            </div>
-
-            <div className="service-card">
-              <div className="service-icon">🔄</div>
-              <h3>Nail Refill</h3>
-              <p className="service-duration">45 minutes</p>
-              <p className="service-description">
-                Maintain your beautiful nails with professional refill service
-              </p>
-              <ul className="service-features">
-                <li>Fill grown-out areas</li>
-                <li>Reshape & rebalance</li>
-                <li>Quick & convenient</li>
-              </ul>
-              <button className="service-book-btn" onClick={openWhatsAppBooking}>
-                📱 Book Now
-              </button>
-            </div>
-
-            <div className="service-card">
-              <div className="service-icon">⚡</div>
-              <h3>Press-on Nails</h3>
+              <div className="service-icon">🎭</div>
+              <h3>Nail Decals</h3>
               <p className="service-duration">30 minutes</p>
               <p className="service-description">
-                Quick and easy press-on nails perfect for events and occasions
+                Stylish nail decals for quick and easy nail decoration
               </p>
               <ul className="service-features">
-                <li>Instant glamour</li>
-                <li>Reusable options</li>
-                <li>No damage to natural nails</li>
+                <li>Wide variety of designs</li>
+                <li>Easy application</li>
+                <li>Long-lasting</li>
+              </ul>
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
+              </button>
+            </div>
+
+            <div className="service-card">
+              <div className="service-icon">💅</div>
+              <h3>Nail Polish Changes</h3>
+              <p className="service-duration">30 minutes</p>
+              <p className="service-description">
+                Quick polish changes with our premium color collection
+              </p>
+              <ul className="service-features">
+                <li>Wide color range</li>
+                <li>Premium brands</li>
+                <li>Perfect finish</li>
+              </ul>
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
+              </button>
+            </div>
+
+            <div className="service-card">
+              <div className="service-icon">🎨</div>
+              <h3>Nail Painting & Designs</h3>
+              <p className="service-duration">45-90 minutes</p>
+              <p className="service-description">
+                Hand-painted nail designs from simple to elaborate patterns
+              </p>
+              <ul className="service-features">
+                <li>Custom painting</li>
+                <li>Artistic designs</li>
+                <li>Personal consultation</li>
+              </ul>
+              <button className="service-book-btn" onClick={openWhatsAppBooking}>
+                📱 Book Now
+              </button>
+            </div>
+
+            <div className="service-card">
+              <div className="service-icon">🔧</div>
+              <h3>Nail Repair</h3>
+              <p className="service-duration">30 minutes</p>
+              <p className="service-description">
+                Professional repair service for damaged or broken nails
+              </p>
+              <ul className="service-features">
+                <li>Quick fixes</li>
+                <li>Seamless repair</li>
+                <li>Restore natural look</li>
               </ul>
               <button className="service-book-btn" onClick={openWhatsAppBooking}>
                 📱 Book Now
@@ -351,30 +368,92 @@ function App() {
                 ></iframe>
               </div>
 
-              {/* Review Cards */}
+              {/* Customer Testimonials */}
+              <div className="testimonials-header">
+                <h3>Customer Testimonials</h3>
+                <p>Hear what our clients have to say about their experience</p>
+              </div>
+
               <div className="review-cards">
                 <div className="review-card">
                   <div className="review-stars">⭐⭐⭐⭐⭐</div>
                   <p className="review-text">
-                    "Amazing nail art! The team is so professional and the ambiance is so relaxing. Highly recommended!"
+                    I went here for my wedding Nail art… & I noticed Cooperative nature of saloni, she explains well about shapes of nail extensions, gel polish, which colour would suit on my outfits... also her suggestions for designs and colours are up to mark… thank you for making my nails pretty 🤗♥️
                   </p>
-                  <p className="review-author">- Happy Customer</p>
+                  <p className="review-author">- Vyoma Patel</p>
+                  <p className="review-meta">Local Guide · 2 years ago</p>
                 </div>
 
                 <div className="review-card">
                   <div className="review-stars">⭐⭐⭐⭐⭐</div>
                   <p className="review-text">
-                    "Best nail salon in Ankleshwar! Premium quality service and beautiful designs. Worth every penny!"
+                    I recently had the pleasure of getting my nails done at The Nails Hub, and I must say it was such a relaxing and enjoyable experience! I especially loved how creative and detailed the nail artist was—the design turned out even better than I imagined!
                   </p>
-                  <p className="review-author">- Satisfied Client</p>
+                  <p className="review-author">- Dhvani Shah</p>
+                  <p className="review-meta">7 months ago</p>
                 </div>
 
                 <div className="review-card">
                   <div className="review-stars">⭐⭐⭐⭐⭐</div>
                   <p className="review-text">
-                    "Perfect for bridal nails! They created exactly what I wanted. Absolutely loved the experience!"
+                    Firstly I would like to say Thank you to saloni for being so polite and courteous, nail techs actually are very knowledgeable and have interest. I highly recommend this nail studio (THE NAIL HUBS).
                   </p>
-                  <p className="review-author">- Bridal Customer</p>
+                  <p className="review-author">- Gayatri Patel</p>
+                  <p className="review-meta">A year ago</p>
+                </div>
+
+                <div className="review-card">
+                  <div className="review-stars">⭐⭐⭐⭐⭐</div>
+                  <p className="review-text">
+                    It was amazing experience. I never got my nails done nd the owner was very sweet despite me fumbling. It was a really good experience overall.
+                  </p>
+                  <p className="review-author">- Helin Patel</p>
+                  <p className="review-meta">3 months ago</p>
+                </div>
+
+                <div className="review-card">
+                  <div className="review-stars">⭐⭐⭐⭐⭐</div>
+                  <p className="review-text">
+                    Got the beautiful nails.... So happy to choose her for permanent things.... Thank you so much the nail hubs (saloni) my first experience is good and worth visiting .. ♥️♥️♥️♥️😘
+                  </p>
+                  <p className="review-author">- Dolly Suthar</p>
+                  <p className="review-meta">A year ago</p>
+                </div>
+
+                <div className="review-card">
+                  <div className="review-stars">⭐⭐⭐⭐⭐</div>
+                  <p className="review-text">
+                    Must visit guys. It's a such a amazing experience ❤️❤️❤️ I am so happy with artist's work and it's is also reasonable range ❤️❤️❤️❤️
+                  </p>
+                  <p className="review-author">- Nidhi Patel</p>
+                  <p className="review-meta">2 years ago</p>
+                </div>
+
+                <div className="review-card">
+                  <div className="review-stars">⭐⭐⭐⭐⭐</div>
+                  <p className="review-text">
+                    Very happy with the service here! My sister got her nails done here for her birthday ceremony and she was too happy with that...... Thank you THE NAIL HUBS (saloni didi) 😍💐
+                  </p>
+                  <p className="review-author">- Meet Patel</p>
+                  <p className="review-meta">A year ago</p>
+                </div>
+
+                <div className="review-card">
+                  <div className="review-stars">⭐⭐⭐⭐⭐</div>
+                  <p className="review-text">
+                    She has magical hands... Got awesome nails.... Specially came from Bharuch....very happy.... ♥️♥️♥️
+                  </p>
+                  <p className="review-author">- Minaxi Patel</p>
+                  <p className="review-meta">A year ago</p>
+                </div>
+
+                <div className="review-card">
+                  <div className="review-stars">⭐⭐⭐⭐⭐</div>
+                  <p className="review-text">
+                    Art of nails is too much elegance and natural. Nature is too much soft and friendly.
+                  </p>
+                  <p className="review-author">- Misha Patel</p>
+                  <p className="review-meta">10 months ago</p>
                 </div>
               </div>
 
