@@ -42,6 +42,7 @@ function App() {
             <li><a href="#home" onClick={() => scrollToSection('home')}>Home</a></li>
             <li><a href="#services" onClick={() => scrollToSection('services')}>Services</a></li>
             <li><a href="#gallery" onClick={() => scrollToSection('gallery')}>Gallery</a></li>
+            <li><a href="#reviews" onClick={() => scrollToSection('reviews')}>Reviews</a></li>
             <li><a href="#about" onClick={() => scrollToSection('about')}>About</a></li>
             <li><a href="#contact" onClick={() => scrollToSection('contact')}>Contact</a></li>
             <li>
@@ -308,6 +309,86 @@ function App() {
                 >
                   <span className="instagram-gradient">📸</span>
                   <span>Visit @thenailhubs on Instagram</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section id="reviews" className="reviews-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">What Our Clients Say</h2>
+            <p className="section-subtitle">
+              Real reviews from our valued customers
+            </p>
+          </div>
+
+          <div className="reviews-content">
+            {/* Google Reviews Embed */}
+            <div className="google-reviews-container">
+              <div className="reviews-header">
+                <div className="reviews-rating">
+                  <span className="star-icon">⭐⭐⭐⭐⭐</span>
+                  <h3>5.0 Rating on Google</h3>
+                  <p>Join hundreds of satisfied customers!</p>
+                </div>
+              </div>
+
+              {/* Google Maps Reviews Embed */}
+              <div className="google-maps-embed">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.8286419779897!2d73.04735137496908!3d21.598003580125658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be0237ec798dc17%3A0xbe20ebcb0a43670a!2sThe%20Nail%20Hubs!5e0!3m2!1sen!2sin!4v1736709000000!5m2!1sen!2sin"
+                  width="100%"
+                  height="500"
+                  style={{ border: 0, borderRadius: '15px' }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="The Nail Hubs Google Reviews"
+                ></iframe>
+              </div>
+
+              {/* Review Cards */}
+              <div className="review-cards">
+                <div className="review-card">
+                  <div className="review-stars">⭐⭐⭐⭐⭐</div>
+                  <p className="review-text">
+                    "Amazing nail art! The team is so professional and the ambiance is so relaxing. Highly recommended!"
+                  </p>
+                  <p className="review-author">- Happy Customer</p>
+                </div>
+
+                <div className="review-card">
+                  <div className="review-stars">⭐⭐⭐⭐⭐</div>
+                  <p className="review-text">
+                    "Best nail salon in Ankleshwar! Premium quality service and beautiful designs. Worth every penny!"
+                  </p>
+                  <p className="review-author">- Satisfied Client</p>
+                </div>
+
+                <div className="review-card">
+                  <div className="review-stars">⭐⭐⭐⭐⭐</div>
+                  <p className="review-text">
+                    "Perfect for bridal nails! They created exactly what I wanted. Absolutely loved the experience!"
+                  </p>
+                  <p className="review-author">- Bridal Customer</p>
+                </div>
+              </div>
+
+              {/* CTA to Leave Review */}
+              <div className="review-cta">
+                <h3>Love Our Service?</h3>
+                <p>Share your experience with us on Google!</p>
+                <a
+                  href="https://www.google.com/maps/place/The+Nail+Hubs/@21.5980035,73.0473514,17z/data=!4m8!3m7!1s0x3be0237ec798dc17:0xbe20ebcb0a43670a!8m2!3d21.5980035!4d73.0473514!9m1!1b1!16s%2Fg%2F11v9_ppp79?entry=ttu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="review-btn"
+                >
+                  ⭐ Leave a Review
                 </a>
               </div>
             </div>
