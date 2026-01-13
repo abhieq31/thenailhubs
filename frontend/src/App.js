@@ -668,6 +668,9 @@ function App() {
 
       {/* Chat Widget */}
       <ChatWidget isOpen={isOpen} onClose={() => setIsOpen(false)} />
+
+      {/* Vercel Analytics */}
+      <Analytics />
     </div>
   );
 }

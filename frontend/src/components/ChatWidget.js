@@ -4,9 +4,7 @@ import './ChatWidget.css';
 function ChatWidget({ isOpen, onClose }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
-  const [currentCategory, setCurrentCategory] = useState('main');
   const [isTyping, setIsTyping] = useState(false);
   const [quickReplies, setQuickReplies] = useState([]);
   const messagesEndRef = useRef(null);
@@ -58,6 +56,7 @@ function ChatWidget({ isOpen, onClose }) {
     if (isOpen && messages.length === 0) {
       showWelcomeMessage();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   // Simulate typing effect
@@ -114,7 +113,6 @@ How can I assist you today?`;
     ]);
 
     setQuickReplies(['What services do you offer?', 'How to book?', 'Where are you located?']);
-    setCurrentCategory('main');
   };
 
   const getTimeBasedGreeting = () => {
