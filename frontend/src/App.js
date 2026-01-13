@@ -670,7 +670,7 @@ function App() {
       )}
 
       {/* Chat Widget */}
-      <ChatWidget isChatOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      <ChatWidget isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
       {/* Vercel Analytics */}
       <Analytics />

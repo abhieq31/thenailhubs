@@ -42,7 +42,20 @@ function ChatWidget({ isOpen, onClose }) {
     walkIn: "Walk-ins are welcome! However, we recommend booking an appointment to ensure availability, especially for bridal services.",
     parking: "Yes, Garden City has ample parking space available for our customers.",
     payment: "We accept Cash, UPI, and all major payment methods for your convenience.",
+    duration: "Service durations vary: Acrylic Nails (100-120 min), Nail Art (75-120 min), Extensions (90-110 min), Decals (25-35 min), Polish Change (25-30 min), Nail Repair (20-30 min).",
+    refill: "We recommend getting a refill every 2-3 weeks for acrylic nails and extensions to maintain their beauty and prevent lifting.",
   };
+
+  // Nail care tips
+  const nailCareTips = [
+    "💧 Keep your nails hydrated by applying cuticle oil daily",
+    "🧤 Wear gloves when doing household chores to protect your nails",
+    "💅 Avoid using nails as tools - they're jewels, not tools!",
+    "🥗 Eat biotin-rich foods like eggs, almonds & sweet potatoes for stronger nails",
+    "💤 Give your nails a break between extensions to let them breathe",
+    "🚫 Don't peel or pick at your nail polish - it damages the nail bed",
+    "✨ Apply a base coat before polish to prevent staining",
+  ];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -108,11 +121,13 @@ How can I assist you today?`;
       { label: '💅 View Services', value: 'services', icon: '💅' },
       { label: '💰 Pricing Info', value: 'pricing', icon: '💰' },
       { label: '📍 Location & Hours', value: 'location', icon: '📍' },
+      { label: '💡 Nail Care Tips', value: 'tips', icon: '💡' },
+      { label: '⭐ Reviews', value: 'reviews', icon: '⭐' },
       { label: '❓ FAQs', value: 'faq', icon: '❓' },
       { label: '📞 Contact Us', value: 'contact', icon: '📞' },
     ]);
 
-    setQuickReplies(['What services do you offer?', 'How to book?', 'Where are you located?']);
+    setQuickReplies(['Book appointment', 'View services', 'Nail care tips']);
   };
 
   const getTimeBasedGreeting = () => {
@@ -149,6 +164,12 @@ How can I assist you today?`;
         break;
       case 'contact':
         handleContact();
+        break;
+      case 'tips':
+        handleNailCareTips();
+        break;
+      case 'reviews':
+        handleReviews();
         break;
       case 'book_whatsapp':
         openWhatsAppBooking();
@@ -188,6 +209,15 @@ How can I assist you today?`;
         break;
       case 'faq_payment':
         addBotMessage(faqs.payment, getBackToMenuOptions());
+        break;
+      case 'faq_duration':
+        addBotMessage(faqs.duration, getBackToMenuOptions());
+        break;
+      case 'faq_refill':
+        addBotMessage(faqs.refill, getBackToMenuOptions());
+        break;
+      case 'open_reviews':
+        window.open('https://www.google.com/maps/place/The+Nail+Hubs/@21.5980035,73.0473514,17z/data=!4m8!3m7!1s0x3be0237ec798dc17:0xbe20ebcb0a43670a!8m2!3d21.5980035!4d73.0473514!9m1!1b1!16s%2Fg%2F11v9_ppp79?entry=ttu', '_blank');
         break;
       case 'service_acrylic':
       case 'service_art':
@@ -413,6 +443,58 @@ Select a question to get your answer:`;
       { label: '🚶 Walk-ins Welcome?', value: 'faq_walkin' },
       { label: '🚗 Parking Available?', value: 'faq_parking' },
       { label: '💳 Payment Methods?', value: 'faq_payment' },
+      { label: '⏱️ Service Duration?', value: 'faq_duration' },
+      { label: '🔄 Refill Timing?', value: 'faq_refill' },
+      { label: '🔙 Main Menu', value: 'main_menu' },
+    ]);
+  };
+
+  const handleNailCareTips = () => {
+    const randomTips = nailCareTips.sort(() => 0.5 - Math.random()).slice(0, 4);
+
+    const tipsText = `💡 **Nail Care Tips from The Nail Hubs**
+
+Here are some expert tips to keep your nails healthy & beautiful:
+
+${randomTips.join('\n\n')}
+
+✨ **Pro Tip:** Regular visits to your nail technician help catch problems early!
+
+Want to maintain beautiful nails? Book a session with Saloni!`;
+
+    addBotMessage(tipsText, [
+      { label: '📅 Book Appointment', value: 'book', highlight: true },
+      { label: '💅 View Services', value: 'services' },
+      { label: '💡 More Tips', value: 'tips' },
+      { label: '🔙 Main Menu', value: 'main_menu' },
+    ]);
+  };
+
+  const handleReviews = () => {
+    const reviewsText = `⭐ **What Our Clients Say**
+
+We're proud to have a **5.0 rating** on Google! Here's what our customers love:
+
+💬 *"I went here for my wedding Nail art… Saloni explains well about shapes, gel polish, which colour would suit on my outfits..."*
+— **Vyoma Patel** (Local Guide)
+
+💬 *"Such a relaxing and enjoyable experience! The design turned out even better than I imagined!"*
+— **Dhvani Shah**
+
+💬 *"She has magical hands... Got awesome nails.... Specially came from Bharuch!"*
+— **Minaxi Patel**
+
+💬 *"Very happy with the service! My sister got her nails done for her birthday ceremony and was too happy!"*
+— **Meet Patel**
+
+🌟 Customers travel from Bharuch just to visit us!
+
+Leave your own review after your visit!`;
+
+    addBotMessage(reviewsText, [
+      { label: '📅 Book & Experience', value: 'book', highlight: true },
+      { label: '⭐ Leave a Review', value: 'open_reviews' },
+      { label: '📸 See Our Work', value: 'open_instagram' },
       { label: '🔙 Main Menu', value: 'main_menu' },
     ]);
   };
@@ -427,36 +509,67 @@ Select a question to get your answer:`;
   const handleNaturalLanguage = (text) => {
     const lowerText = text.toLowerCase();
 
-    // Keywords matching
-    if (lowerText.includes('book') || lowerText.includes('appointment') || lowerText.includes('schedule')) {
+    // Keywords matching - ordered by specificity
+    if (lowerText.includes('book') || lowerText.includes('appointment') || lowerText.includes('schedule') || lowerText.includes('reserve')) {
       handleBooking();
-    } else if (lowerText.includes('service') || lowerText.includes('offer') || lowerText.includes('what do you')) {
+    } else if (lowerText.includes('tip') || lowerText.includes('care') || lowerText.includes('maintain') || lowerText.includes('healthy nail')) {
+      handleNailCareTips();
+    } else if (lowerText.includes('review') || lowerText.includes('rating') || lowerText.includes('feedback') || lowerText.includes('testimonial')) {
+      handleReviews();
+    } else if (lowerText.includes('service') || lowerText.includes('offer') || lowerText.includes('what do you') || lowerText.includes('menu')) {
       handleServices();
-    } else if (lowerText.includes('price') || lowerText.includes('cost') || lowerText.includes('how much') || lowerText.includes('rate')) {
+    } else if (lowerText.includes('price') || lowerText.includes('cost') || lowerText.includes('how much') || lowerText.includes('rate') || lowerText.includes('charge')) {
       handlePricing();
-    } else if (lowerText.includes('location') || lowerText.includes('address') || lowerText.includes('where') || lowerText.includes('direction')) {
+    } else if (lowerText.includes('location') || lowerText.includes('address') || lowerText.includes('where') || lowerText.includes('direction') || lowerText.includes('find you')) {
       handleLocation();
-    } else if (lowerText.includes('hour') || lowerText.includes('time') || lowerText.includes('open') || lowerText.includes('close')) {
+    } else if (lowerText.includes('hour') || lowerText.includes('timing') || lowerText.includes('open') || lowerText.includes('close') || lowerText.includes('when')) {
       handleLocation();
-    } else if (lowerText.includes('contact') || lowerText.includes('phone') || lowerText.includes('call') || lowerText.includes('whatsapp')) {
+    } else if (lowerText.includes('contact') || lowerText.includes('phone') || lowerText.includes('call') || lowerText.includes('whatsapp') || lowerText.includes('reach')) {
       handleContact();
     } else if (lowerText.includes('acrylic')) {
       handleServiceDetail('service_acrylic');
-    } else if (lowerText.includes('nail art') || lowerText.includes('art')) {
+    } else if (lowerText.includes('nail art') || (lowerText.includes('art') && lowerText.includes('nail'))) {
       handleServiceDetail('service_art');
-    } else if (lowerText.includes('extension')) {
+    } else if (lowerText.includes('extension') || lowerText.includes('extend')) {
       handleServiceDetail('service_extensions');
-    } else if (lowerText.includes('bridal') || lowerText.includes('wedding')) {
+    } else if (lowerText.includes('decal') || lowerText.includes('sticker')) {
+      handleServiceDetail('service_decals');
+    } else if (lowerText.includes('polish') || lowerText.includes('color change') || lowerText.includes('colour change')) {
+      handleServiceDetail('service_polish');
+    } else if (lowerText.includes('repair') || lowerText.includes('fix') || lowerText.includes('broken')) {
+      handleServiceDetail('service_repair');
+    } else if (lowerText.includes('bridal') || lowerText.includes('wedding') || lowerText.includes('bride') || lowerText.includes('shaadi')) {
       addBotMessage(faqs.bridal, getBackToMenuOptions());
-    } else if (lowerText.includes('hi') || lowerText.includes('hello') || lowerText.includes('hey')) {
+    } else if (lowerText.includes('refill') || lowerText.includes('maintenance') || lowerText.includes('touch up')) {
+      addBotMessage(faqs.refill, getBackToMenuOptions());
+    } else if (lowerText.includes('how long') || lowerText.includes('duration') || lowerText.includes('time take')) {
+      addBotMessage(faqs.duration, getBackToMenuOptions());
+    } else if (lowerText.includes('hygiene') || lowerText.includes('clean') || lowerText.includes('sanitize') || lowerText.includes('safe')) {
+      addBotMessage(faqs.hygiene, getBackToMenuOptions());
+    } else if (lowerText.includes('park') || lowerText.includes('parking')) {
+      addBotMessage(faqs.parking, getBackToMenuOptions());
+    } else if (lowerText.includes('payment') || lowerText.includes('pay') || lowerText.includes('upi') || lowerText.includes('cash') || lowerText.includes('card')) {
+      addBotMessage(faqs.payment, getBackToMenuOptions());
+    } else if (lowerText.includes('walk') || lowerText.includes('without appointment')) {
+      addBotMessage(faqs.walkIn, getBackToMenuOptions());
+    } else if (lowerText.includes('product') || lowerText.includes('brand') || lowerText.includes('quality')) {
+      addBotMessage(faqs.products, getBackToMenuOptions());
+    } else if (lowerText.includes('saloni') || lowerText.includes('owner') || lowerText.includes('who')) {
+      addBotMessage(`💜 **Meet Saloni - Owner & Artist**\n\nSaloni is the heart of The Nail Hubs! She personally handles all appointments and is known for:\n\n✨ Her cooperative nature\n✨ Expert advice on nail shapes & colors\n✨ Beautiful custom designs\n✨ Sweet and polite personality\n\nCustomers love her expertise and attention to detail! Book now to experience her magic.`, getBackToMenuOptions());
+    } else if (lowerText.includes('hi') || lowerText.includes('hello') || lowerText.includes('hey') || lowerText.includes('hii') || lowerText.includes('hola')) {
       showWelcomeMessage();
-    } else if (lowerText.includes('thank')) {
+    } else if (lowerText.includes('thank') || lowerText.includes('thanks') || lowerText.includes('thx')) {
       addBotMessage(`You're welcome! 💜\n\nIs there anything else I can help you with?\n\nFeel free to ask anything about our services or book your appointment!`, getBackToMenuOptions());
+    } else if (lowerText.includes('bye') || lowerText.includes('goodbye') || lowerText.includes('see you')) {
+      addBotMessage(`Goodbye! 👋\n\nThank you for chatting with The Nail Hubs! We hope to see you soon for your nail pampering session. 💅\n\nHave a beautiful day! ✨`, getBackToMenuOptions());
+    } else if (lowerText.includes('help') || lowerText.includes('support')) {
+      showWelcomeMessage();
     } else {
       // Default response for unrecognized input
-      addBotMessage(`I'd be happy to help! 😊\n\nFor the best assistance, please select from the options below or try asking about:\n• Our services\n• Booking an appointment\n• Pricing information\n• Location & hours\n\nOr simply WhatsApp us for personalized help!`, [
+      addBotMessage(`I'd be happy to help! 😊\n\nFor the best assistance, please select from the options below or try asking about:\n• Our services\n• Booking an appointment\n• Pricing information\n• Location & hours\n• Nail care tips\n\nOr simply WhatsApp us for personalized help!`, [
         { label: '📅 Book Appointment', value: 'book' },
         { label: '💅 View Services', value: 'services' },
+        { label: '💡 Nail Care Tips', value: 'tips' },
         { label: '💬 WhatsApp Us', value: 'whatsapp_chat' },
         { label: '🔙 Main Menu', value: 'main_menu' },
       ]);
