@@ -269,6 +269,7 @@ function App() {
                   frameBorder="0"
                   scrolling="no"
                   allowTransparency="true"
+                  loading="lazy"
                   title="Instagram Feed"
                   style={{
                     background: 'white',
@@ -507,6 +508,7 @@ function App() {
                 frameBorder="0"
                 scrolling="no"
                 allowTransparency="true"
+                loading="lazy"
                 title="Instagram Reel"
                 style={{
                   background: 'white',
@@ -573,6 +575,7 @@ function App() {
                 frameBorder="0"
                 scrolling="no"
                 allowTransparency="true"
+                loading="lazy"
                 title="Instagram Post"
                 style={{
                   background: 'white',
