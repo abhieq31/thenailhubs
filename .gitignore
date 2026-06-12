@@ -1,14 +1,19 @@
-# Python
-__pycache__/
-*.pyc
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Env (keep templates)
 .env
 .env.*
-nail_hubs.db
+!.env.example
 
-# Node / React
-node_modules/
-dist/
-build/
+# Vercel
+.vercel
 
 # OS
 .DS_Store
@@ -19,6 +24,3 @@ build/
 
 # Logs
 *.log
-
-# Keep env templates
-!.env.example

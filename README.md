@@ -1,404 +1,132 @@
-# The Nail Hubs - AI Receptionist System
+# 💅 The Nail Hubs — Luxury Salon Web App
 
-A production-ready 24×7 AI receptionist for The Nail Hubs luxury nail salon. This system replaces manual appointment booking through Instagram DMs and phone calls with an intelligent, conversational booking assistant.
+A zero-maintenance, zero-cost web app for **The Nail Hubs**, Ankleshwar's
+premier luxury nail salon. Built once, lives forever: Next.js on Vercel's
+free tier, Supabase Postgres free tier, and AI that runs on the visitor's
+own device.
 
-## Business Information
+> **Launching it?** Follow [SETUP.md](SETUP.md) — 15 minutes, ₹0.
 
-**The Nail Hubs**
-- Location: B-292, Garden City, Ankleshwar – 393001, Gujarat, India
-- Phone: 07698 235501
-- Hours: Open all 7 days, 11:00 AM - 6:00 PM
-- Timezone: Asia/Kolkata
+## Highlights
 
-## Features
+### ✨ AI Virtual Nail Try-On Studio (`/try-on`)
+The signature feature — nowhere else in the industry's local market:
+- Visitors point their **camera at their own hand** and see nail colours,
+  shapes (almond / square / coffin / stiletto), finishes (glossy / matte /
+  chrome / glitter / french) and lengths rendered on their real fingertips
+  **live**
+- Powered by MediaPipe hand-landmark tracking (21 points per hand) running
+  **entirely in the browser** via WebGPU/WASM — heavy compute, zero server
+  cost, works at any scale for free
+- 100% private: no photo or video ever leaves the device
+- One tap to **save/share the look** or **book it on WhatsApp** with the
+  design details pre-filled
 
-### Current
-- 24×7 AI receptionist chat widget — books, reschedules, and cancels appointments live against the booking API
-- Deterministic availability engine (no double bookings)
-- Real-time slot validation with 10-minute buffer between appointments
-- Confirmation ID generation, lookup, reschedule, and cancel by ID
-- Service-aware scheduling (different durations per service)
-- **Live Instagram feed & stories** on the website (Instagram Graph API, cached, with automatic fallback to the profile embed)
-- **Live Google rating & latest reviews** (Google Places API, cached, with fallback to curated testimonials)
-- Optional GPT-powered natural-language receptionist (`/ai-chat`)
-- WhatsApp booking fallback whenever the API is unreachable
-- Fully responsive luxury design (desktop / tablet / mobile)
-- SQLite database storage
+### 💬 24/7 AI Receptionist
+- Books appointments end-to-end in chat: service → live availability →
+  date & time → confirmed with an ID, straight into the database
+- Customers manage their own bookings: lookup, reschedule, cancel by
+  confirmation ID
+- Answers services, pricing, FAQs, location, nail-care tips
+- Falls back to WhatsApp booking automatically if the database isn't
+  reachable — the chat never dead-ends
 
-### Services Offered
-- Acrylic Nails (100–120 min)
-- Nail Art (75–120 min)
-- Nail Extensions (90–110 min)
-- Nail Decals (25–35 min)
-- Nail Polish Changes (25–30 min)
-- Nail Painting & Designs (60–90 min)
-- Nail Repair (20–30 min)
+### 📅 Bulletproof booking engine
+- Availability computed in the salon's timezone (IST) with service-specific
+  durations, 10-minute buffers, same-day lead time, and a 30-day window
+- **Double bookings are physically impossible**: a Postgres exclusion
+  constraint rejects overlapping confirmed appointments even under
+  simultaneous requests
+- Row Level Security on: only the site's own API can touch the data
 
-### Planned Features
-- Instagram DM integration
-- Google Calendar synchronization
-- Multi-staff scheduling
-- Admin dashboard
-- SMS/Email confirmations
-- Customer history tracking
+### 📸 Instagram-first, keyless by design
+- Gallery, reels and profile embeds work with **no API keys**
+- If an Instagram token is ever added, the site automatically upgrades to
+  native latest posts + stories (cached, rate-limit safe)
+- Same pattern for Google reviews: curated 5-star testimonials by default,
+  live Google reviews if a Places key is added
+
+### 📈 Built-in growth engine
+- **Local SEO**: `NailSalon` structured data (hours, geo, services), sitemap,
+  robots, canonical URLs — built to own "nail salon Ankleshwar" searches
+- **Beautiful link shares**: a dynamically generated OpenGraph card, so the
+  site looks premium every time it's shared on WhatsApp or Instagram
+- **Live urgency, honestly**: the hero shows real open/closed status and the
+  next genuinely free slot today, straight from the booking engine
+- **Mobile-first conversion**: sticky Book/WhatsApp bar for Instagram traffic
+- **Customers as distribution**: try-on captures carry an elegant
+  @thenailhubs watermark, and every confirmed booking offers one-tap
+  "Invite a Friend" WhatsApp sharing plus an add-to-calendar invite
+  (fewer no-shows = more real capacity)
+
+## Tech Stack
+
+| Layer | Choice | Why |
+|-------|--------|-----|
+| Framework | Next.js 15 (App Router) | One repo, one deploy: UI + API routes together, no CORS, free on Vercel |
+| UI | React 19 | — |
+| Database | Supabase (Postgres) | Free tier, persistent, exclusion constraints for booking integrity |
+| AI/ML | MediaPipe Tasks Vision | On-device hand tracking — free at any scale, private |
+| Analytics | Vercel Analytics | Free tier |
 
 ## Project Structure
 
 ```
-the-nail-hubs-receptionist/
-├── backend/
-│   ├── main.py                  # FastAPI server
-│   ├── agent.py                 # Conversational AI logic
-│   ├── availability_engine.py   # Slot calculation engine
-│   ├── database.py              # SQLite operations
-│   ├── business_rules.py        # Salon configuration
-│   ├── requirements.txt         # Python dependencies
-│   └── nail_hubs.db            # Database (created on first run)
-│
-├── frontend/
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── ChatWidget.js   # Chat interface
-│   │   │   └── ChatWidget.css
-│   │   ├── App.js              # Main application
-│   │   ├── App.css
-│   │   ├── index.js
-│   │   └── index.css
-│   └── package.json
-│
-└── README.md
+app/
+├── page.js               # Home (hero, try-on teaser, services, gallery, reviews, about, contact)
+├── try-on/page.js        # AI Virtual Try-On Studio
+├── layout.js             # Root layout, metadata, global chat receptionist
+└── api/                  # Booking + integrations API (Next.js route handlers)
+    ├── services/  available-dates/  availability/
+    ├── book/  reschedule/  cancel/  appointment/[id]/
+    ├── instagram/feed/  instagram/stories/
+    └── google/reviews/
+
+components/               # Navbar, Hero, Services, Gallery, Reviews, About,
+                          # Contact, Footer, ChatWidget, ChatProvider,
+                          # InstagramFeed, GoogleReviews, TryOnStudio, TryOnTeaser
+lib/                      # businessRules, availability engine, time (IST),
+                          # supabase client, integrations, client API helpers
+styles/                   # globals, chat, feeds, tryon (consistent gold/dark theme)
+supabase/schema.sql       # One-paste database setup
+SETUP.md                  # 15-minute launch guide
 ```
 
-## Installation & Setup
+## API
 
-### Prerequisites
-- Python 3.9 or higher
-- Node.js 16 or higher
-- npm or yarn
-
-### Backend Setup
-
-1. Navigate to the backend folder:
-```bash
-cd the-nail-hubs-receptionist/backend
-```
-
-2. Create a virtual environment:
-```bash
-python -m venv venv
-```
-
-3. Activate the virtual environment:
-```bash
-# On macOS/Linux:
-source venv/bin/activate
-
-# On Windows:
-venv\Scripts\activate
-```
-
-4. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-5. Configure environment (optional but recommended):
-```bash
-cp .env.example .env
-# then fill in the keys you have — every integration is optional
-```
-
-6. Start the backend server:
-```bash
-python main.py
-```
-
-The backend will run on `http://localhost:8000`
-
-### Live Integrations Setup
-
-All integrations degrade gracefully — without keys the site still works
-(Instagram falls back to the profile embed, reviews fall back to curated
-testimonials, the chat falls back to WhatsApp booking if the API is down).
-
-**Instagram feed & stories** (`INSTAGRAM_ACCESS_TOKEN`):
-1. Convert `@thenailhubs` to an Instagram **Professional** account (free, Settings → Account type)
-2. Create an app at [developers.facebook.com](https://developers.facebook.com) using the **"Instagram API with Instagram Login"** product
-3. Generate a long-lived access token for the salon account and set it as `INSTAGRAM_ACCESS_TOKEN`
-4. Tokens last 60 days — call `GET /instagram/refresh-token` monthly and save the returned token
-
-**Google rating & reviews** (`GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`):
-1. In [Google Cloud Console](https://console.cloud.google.com), create an API key and enable **Places API (New)** — the free tier easily covers a salon site since responses are cached for 6 hours
-2. Find the salon's Place ID with the [Place ID finder](https://developers.google.com/maps/documentation/places/web-service/place-id)
-
-**Frontend → backend URL**: copy `frontend/.env.example` to `frontend/.env` and set `REACT_APP_API_URL` to the deployed backend URL (or configure it in Vercel project settings).
-
-### Frontend Setup
-
-1. Navigate to the frontend folder:
-```bash
-cd the-nail-hubs-receptionist/frontend
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npm start
-```
-
-The frontend will open in your browser at `http://localhost:3000`
-
-## API Endpoints
-
-### Chat Endpoint (Recommended)
-- `POST /chat` - Conversational booking interface
-
-### Direct Endpoints
-- `GET /` - Health check
-- `GET /services` - List available services (with durations & icons)
-- `GET /available-dates` - Get next available working days
-- `POST /availability` - Check available slots for a service/date
-- `POST /book` - Create a new appointment
-- `POST /reschedule` - Reschedule existing appointment
-- `POST /cancel` - Cancel appointment
-- `GET /appointment/{confirmation_id}` - Get appointment details
-
-### Live Social Endpoints
-- `GET /instagram/feed?limit=12` - Latest Instagram posts (cached 30 min)
-- `GET /instagram/stories` - Active Instagram stories (cached 10 min)
-- `GET /instagram/refresh-token` - Refresh the long-lived Instagram token
-- `GET /google/reviews` - Live Google rating & latest reviews (cached 6 h)
-
-## Usage Examples
-
-### Chat-Based Booking (Recommended)
-
-```bash
-curl -X POST http://localhost:8000/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message": "hi"}'
-```
-
-The agent will guide customers through:
-1. Service selection
-2. Date preference
-3. Time slot selection
-4. Name and phone collection
-5. Booking confirmation
-
-### Direct Booking
-
-```bash
-# Check availability
-curl -X POST http://localhost:8000/availability \
-  -H "Content-Type: application/json" \
-  -d '{
-    "service": "Acrylic Nails",
-    "date": "2026-01-15",
-    "count": 4
-  }'
-
-# Book appointment
-curl -X POST http://localhost:8000/book \
-  -H "Content-Type: application/json" \
-  -d '{
-    "customer_name": "Priya Shah",
-    "customer_phone": "9876543210",
-    "service": "Acrylic Nails",
-    "appointment_date": "2026-01-15",
-    "appointment_time": "14:00:00"
-  }'
-```
-
-## Agent Conversation Flow
-
-1. **Greeting**
-   - "Hi ✨ Welcome to The Nail Hubs. Which service would you like to book today?"
-
-2. **Service Selection**
-   - Shows list of services with durations
-
-3. **Date Selection**
-   - Shows next 7 available working days
-
-4. **Time Selection**
-   - Shows 4 available slots based on service duration
-
-5. **Contact Information**
-   - Collects name and phone number
-
-6. **Confirmation**
-   - Creates booking and returns confirmation ID (e.g., NH1A2B3C)
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/services` | GET | Service menu with durations |
+| `/api/available-dates?days=7` | GET | Next open days (IST) |
+| `/api/availability` | POST | Open slots for a service + date |
+| `/api/book` | POST | Create appointment (409 on conflict) |
+| `/api/appointment/{id}` | GET | Lookup by confirmation ID |
+| `/api/reschedule` | POST | Move an appointment |
+| `/api/cancel` | POST | Cancel an appointment |
+| `/api/instagram/feed` · `/api/instagram/stories` | GET | Live IG content (optional token) |
+| `/api/google/reviews` | GET | Live Google reviews (optional key) |
 
 ## Business Rules
 
-All business logic is centralized in `backend/business_rules.py`:
+All in [`lib/businessRules.js`](lib/businessRules.js) — change once,
+applies to the website, the chat receptionist, and the booking engine:
 
-- **Working Days**: Open all 7 days
-- **Hours**: 11:00 AM - 6:00 PM
+- **Hours**: open all 7 days, 11:00 AM – 6:00 PM (Asia/Kolkata)
 - **Buffer**: 10 minutes between appointments
-- **Advance Booking**: Up to 30 days ahead
-- **Timezone**: Asia/Kolkata
+- **Window**: bookings up to 30 days ahead; same-day needs 30 min lead
+- **Services**: 7 services with realistic per-service durations
 
-To modify business rules, update this file and restart the backend.
-
-## Database Schema
-
-### appointments table
-- `id` - Auto-increment primary key
-- `confirmation_id` - Unique 8-char ID (NH + 6 hex chars)
-- `customer_name` - Customer name
-- `customer_phone` - Contact number
-- `service` - Service name
-- `service_duration` - Duration in minutes
-- `appointment_date` - Date (ISO format)
-- `appointment_time` - Start time (ISO format)
-- `end_time` - End time (ISO format)
-- `status` - confirmed/cancelled
-- `source` - website/instagram/whatsapp
-- `created_at` - Creation timestamp
-- `updated_at` - Last update timestamp
-
-## Deployment
-
-### Production Checklist
-
-1. **Backend**
-   - Use production ASGI server (Gunicorn + Uvicorn)
-   - Set up proper CORS origins
-   - Move to PostgreSQL for production
-   - Add authentication for admin endpoints
-   - Set up logging and monitoring
-   - Configure environment variables
-
-2. **Frontend**
-   - Build production bundle: `npm run build`
-   - Update API_URL to production backend
-   - Host on Netlify/Vercel or your domain
-   - Enable HTTPS
-
-3. **Database**
-   - Migrate from SQLite to PostgreSQL
-   - Set up automated backups
-   - Add database migrations tool (Alembic)
-
-### Quick Deploy
+## Local Development
 
 ```bash
-# Backend (using Gunicorn)
-pip install gunicorn
-gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000
-
-# Frontend
-npm run build
-# Deploy build/ folder to hosting service
+npm install
+cp .env.example .env.local   # optional — site runs without it
+npm run dev
 ```
 
-## Integration Guide
-
-### Website Integration
-
-Replace your "Book Appointment Now" button with:
-
-```html
-<script src="chat-widget.js"></script>
-<button onclick="openNailHubsChat()">Book Appointment Now</button>
-```
-
-Or embed the React component directly into your website.
-
-### Instagram DM Integration (Future)
-
-1. Set up Instagram Business Account
-2. Configure webhook to receive messages
-3. Route messages to `/chat` endpoint
-4. Same agent handles Instagram conversations
-
-### WhatsApp Integration (Future)
-
-1. Set up WhatsApp Business API
-2. Configure webhook
-3. Route to `/chat` endpoint with `source: "whatsapp"`
-
-## Customization
-
-### Modifying Services
-
-Edit `backend/business_rules.py`:
-
-```python
-SERVICES = {
-    "New Service Name": 60,  # duration in minutes
-    # ...
-}
-```
-
-### Changing Business Hours
-
-Edit `backend/business_rules.py`:
-
-```python
-OPENING_TIME = time(10, 0)  # 10:00 AM
-CLOSING_TIME = time(19, 0)  # 7:00 PM
-```
-
-### Customizing Agent Messages
-
-Edit `backend/agent.py` to modify conversation flow and messages.
-
-## Testing
-
-### Test Backend
-```bash
-cd backend
-pytest  # (add tests in tests/ folder)
-```
-
-### Test Availability Engine
-```bash
-python -c "
-from availability_engine import get_available_slots
-slots = get_available_slots('Acrylic Nails', '2026-01-15')
-print(slots)
-"
-```
-
-## Troubleshooting
-
-### Backend won't start
-- Check if port 8000 is available
-- Verify Python version: `python --version`
-- Check dependencies: `pip list`
-
-### Frontend can't connect to backend
-- Ensure backend is running on port 8000
-- Check CORS settings in `main.py`
-- Verify API_URL in `ChatWidget.js`
-
-### No slots showing
-- Check business hours configuration
-- Verify the date is a working day (not Sunday)
-- Check database for conflicting appointments
-
-## Support
-
-For issues or questions:
-- Phone: 07698 235501
-- Update business logic in `business_rules.py`
-- Check logs in backend console
-
-## License
-
-Proprietary - The Nail Hubs
+Without Supabase configured, booking endpoints return 503 and the chat
+offers WhatsApp booking instead; everything else works.
 
 ---
 
-**Built specifically for The Nail Hubs, Ankleshwar**
-
-This is not generic SaaS software. This is a custom receptionist replacement tailored to your salon's exact needs.
+Made with 💅 in Ankleshwar · Women-owned · [@thenailhubs](https://www.instagram.com/thenailhubs/)
