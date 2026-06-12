@@ -13,6 +13,8 @@ function ChatWidget({ isOpen, onClose }) {
   // Active booking / reschedule / manage flow (kept in a ref so async
   // handlers and the input handler always see the latest step)
   const flowRef = useRef(null);
+  // Last confirmed booking — powers "Add to Calendar" / "Invite a Friend"
+  const lastBookingRef = useRef(null);
 
   // Business Information
   const businessInfo = {
@@ -189,6 +191,12 @@ How can I assist you today?`;
         break;
       case 'manage_reschedule':
         startReschedule();
+        break;
+      case 'add_calendar':
+        downloadCalendarInvite();
+        break;
+      case 'share_friend':
+        inviteAFriend();
         break;
       case 'services':
         handleServices();
@@ -441,6 +449,15 @@ Shall I confirm it?`, [
         appointment_date: flow.date,
         appointment_time: flow.time,
       });
+      lastBookingRef.current = {
+        service: flow.service,
+        date: flow.date,
+        time: flow.time,
+        endTime: appointment.end_time,
+        dateLabel: flow.dateLabel,
+        timeLabel: flow.timeLabel,
+        confirmationId: appointment.confirmation_id,
+      };
       flowRef.current = null;
       addBotMessage(`🎉 **You're booked, ${flow.name}!**
 
@@ -451,8 +468,9 @@ Shall I confirm it?`, [
 🆔 **Confirmation ID:** ${appointment.confirmation_id}
 
 Please save this ID — you can use it right here anytime to reschedule or cancel. We can't wait to pamper you! 💜`, [
+        { label: '📅 Add to Calendar', value: 'add_calendar', highlight: true },
+        { label: '💌 Invite a Friend', value: 'share_friend' },
         { label: '🗂️ Manage This Booking', value: 'manage' },
-        { label: '📸 See Our Work', value: 'open_instagram' },
         { label: '🔙 Main Menu', value: 'main_menu' },
       ]);
     } catch (e) {
@@ -463,6 +481,55 @@ Please save this ID — you can use it right here anytime to reschedule or cance
         apiUnavailable('Something went wrong while confirming your booking. 😔');
       }
     }
+  };
+
+  // Download an .ics invite so the appointment lands in the customer's
+  // calendar — fewer forgotten appointments, fewer no-shows.
+  const downloadCalendarInvite = () => {
+    const b = lastBookingRef.current;
+    if (!b) return showWelcomeMessage();
+    const compact = (d, t) => `${d.replace(/-/g, '')}T${t.replace(/:/g, '')}`;
+    const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+    const ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//The Nail Hubs//Booking//EN',
+      'BEGIN:VEVENT',
+      `UID:${b.confirmationId}@thenailhubs`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;TZID=Asia/Kolkata:${compact(b.date, b.time)}`,
+      `DTEND;TZID=Asia/Kolkata:${compact(b.date, b.endTime)}`,
+      `SUMMARY:💅 ${b.service} — The Nail Hubs`,
+      `LOCATION:${businessInfo.address}`,
+      `DESCRIPTION:Confirmation ID: ${b.confirmationId}\\nPhone: ${businessInfo.phone}`,
+      'END:VEVENT',
+      'END:VCALENDAR',
+    ].join('\r\n');
+
+    const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `nail-hubs-${b.confirmationId}.ics`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    addBotMessage(`📅 Calendar invite downloaded! Open it to add your appointment to your phone's calendar.
+
+Anything else I can help with?`, [
+      { label: '💌 Invite a Friend', value: 'share_friend' },
+      { label: '🔙 Main Menu', value: 'main_menu' },
+    ]);
+  };
+
+  // Word-of-mouth, one tap: share the salon with a friend on WhatsApp
+  const inviteAFriend = () => {
+    const b = lastBookingRef.current;
+    const text = encodeURIComponent(
+      `I just booked my nails at The Nail Hubs in Ankleshwar 💅✨${b ? ` (${b.service}!)` : ''}\n\n` +
+      `You can book 24/7 on their website — and even try nail designs on your OWN hand with AI before you choose 🤯\n\n` +
+      `${window.location.origin}\n\nCome with me? 💜`
+    );
+    window.open(`https://wa.me/?text=${text}`, '_blank');
   };
 
   // ── Manage booking (lookup / reschedule / cancel) ──────────────────

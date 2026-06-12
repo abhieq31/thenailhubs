@@ -5,7 +5,16 @@ import '@/styles/chat.css';
 import '@/styles/feeds.css';
 import '@/styles/tryon.css';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://thenailhubs.vercel.app';
+
 export const metadata = {
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: '/' },
+  keywords: [
+    'nail salon Ankleshwar', 'nail art Ankleshwar', 'acrylic nails Gujarat',
+    'nail extensions Ankleshwar', 'bridal nail art', 'The Nail Hubs',
+    'nail salon near me', 'virtual nail try on',
+  ],
   title: 'The Nail Hubs - A Touch Of Elegance',
   description:
     "The Nail Hubs - Ankleshwar's Premier Luxury Nail Salon. Book your appointment 24/7, try nails on with AI, and explore acrylics, extensions, nail art and bridal designs.",
@@ -29,6 +38,12 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://www.instagram.com" />
+        <link rel="preconnect" href="https://www.google.com" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="preconnect" href="https://storage.googleapis.com" />
+      </head>
       <body>
         <div className="App">
           <ChatProvider>{children}</ChatProvider>

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import ChatWidget from './ChatWidget';
+import StickyBookBar from './StickyBookBar';
 
 const ChatContext = createContext({ isChatOpen: false, openChat: () => {}, closeChat: () => {} });
 
@@ -28,6 +29,7 @@ export default function ChatProvider({ children }) {
         </button>
       )}
 
+      <StickyBookBar />
       <ChatWidget isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </ChatContext.Provider>
   );

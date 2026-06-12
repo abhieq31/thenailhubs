@@ -46,6 +46,19 @@ The signature feature — nowhere else in the industry's local market:
 - Same pattern for Google reviews: curated 5-star testimonials by default,
   live Google reviews if a Places key is added
 
+### 📈 Built-in growth engine
+- **Local SEO**: `NailSalon` structured data (hours, geo, services), sitemap,
+  robots, canonical URLs — built to own "nail salon Ankleshwar" searches
+- **Beautiful link shares**: a dynamically generated OpenGraph card, so the
+  site looks premium every time it's shared on WhatsApp or Instagram
+- **Live urgency, honestly**: the hero shows real open/closed status and the
+  next genuinely free slot today, straight from the booking engine
+- **Mobile-first conversion**: sticky Book/WhatsApp bar for Instagram traffic
+- **Customers as distribution**: try-on captures carry an elegant
+  @thenailhubs watermark, and every confirmed booking offers one-tap
+  "Invite a Friend" WhatsApp sharing plus an add-to-calendar invite
+  (fewer no-shows = more real capacity)
+
 ## Tech Stack
 
 | Layer | Choice | Why |

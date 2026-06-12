@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { BUSINESS } from '@/lib/businessRules';
 import { useChat } from './ChatProvider';
+import LiveAvailability from './LiveAvailability';
 
 const WHATSAPP_BOOKING_URL = `https://wa.me/${BUSINESS.phoneIntl}?text=Hello%2C%20I%20would%20like%20to%20book.%0A%0AName%3A%0ADate%3A%0ATime%3A%0AService%3A`;
 
@@ -22,6 +23,7 @@ function Hero() {
         <p className="hero-subtitle">
           Ankleshwar&apos;s Premier Luxury Nail Salon
         </p>
+        <LiveAvailability />
         <div className="hero-buttons">
           <button className="btn-primary" onClick={openChat}>
             💅 Book Instantly — 24/7

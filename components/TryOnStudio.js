@@ -403,7 +403,23 @@ function TryOnStudio() {
   const capture = async () => {
     const canvas = canvasRef.current;
     if (!canvas || mode === 'idle') return;
-    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.92));
+
+    // Compose with a branded watermark — every shared look markets the salon
+    const out = document.createElement('canvas');
+    out.width = canvas.width;
+    out.height = canvas.height;
+    const ctx = out.getContext('2d');
+    ctx.drawImage(canvas, 0, 0);
+    const fs = Math.max(16, Math.round(out.width * 0.028));
+    ctx.font = `600 ${fs}px -apple-system, 'Segoe UI', sans-serif`;
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'bottom';
+    ctx.shadowColor = 'rgba(0,0,0,0.85)';
+    ctx.shadowBlur = fs * 0.45;
+    ctx.fillStyle = '#E8CF96';
+    ctx.fillText('💅 The Nail Hubs · @thenailhubs', out.width - fs * 0.8, out.height - fs * 0.7);
+
+    const blob = await new Promise((resolve) => out.toBlob(resolve, 'image/jpeg', 0.92));
     if (!blob) return;
     const file = new File([blob], 'my-nail-hubs-look.jpg', { type: 'image/jpeg' });
 

@@ -2385,3 +2385,120 @@ a.btn-primary {
   align-items: center;
   justify-content: center;
 }
+
+/* ── Growth: live availability pill (hero) ───────────────────────── */
+.live-availability {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto 28px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 169, 97, 0.45);
+  background: rgba(15, 15, 15, 0.55);
+  backdrop-filter: blur(6px);
+  color: var(--text-light, #e8e8e8);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  animation: slide-up-fade 0.6s ease 0.3s both;
+}
+
+.live-availability:hover {
+  border-color: var(--primary-gold, #C9A961);
+  box-shadow: 0 0 24px rgba(201, 169, 97, 0.35);
+  transform: translateY(-2px);
+}
+
+.live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.live-dot.open {
+  background: #4ade80;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+  animation: live-pulse 1.8s ease-in-out infinite;
+}
+
+.live-dot.closed {
+  background: #f87171;
+}
+
+.live-divider {
+  opacity: 0.45;
+}
+
+.live-slot-text {
+  color: var(--primary-gold, #C9A961);
+  font-weight: 600;
+}
+
+.live-cta {
+  margin-left: 4px;
+  color: var(--primary-gold, #C9A961);
+  font-weight: 700;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Growth: sticky mobile book bar ──────────────────────────────── */
+.sticky-book-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sticky-book-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1200;
+    display: flex;
+    gap: 10px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(15, 15, 15, 0.94);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(201, 169, 97, 0.35);
+    animation: slide-up-fade 0.3s ease both;
+  }
+
+  .sticky-book-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 10px;
+    border-radius: 12px;
+    border: none;
+    font-size: 0.98rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .sticky-book-btn.primary {
+    background: var(--gradient-1, linear-gradient(135deg, #C9A961, #B89650));
+    color: var(--text-dark, #1a1a1a);
+  }
+
+  .sticky-book-btn.whatsapp {
+    background: #1da851;
+    color: #fff;
+  }
+
+  /* keep the floating chat button clear of the bar on mobile */
+  .floating-book-button {
+    bottom: 86px !important;
+  }
+}
