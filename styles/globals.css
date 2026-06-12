@@ -2502,3 +2502,146 @@ a.btn-primary {
     bottom: 86px !important;
   }
 }
+
+/* ── Luxury typography (Playfair Display + Poppins via next/font) ── */
+body {
+  font-family: var(--font-body), -apple-system, 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3, h4,
+.section-title,
+.hero-title,
+.salon-name,
+.tryon-teaser-text h2 {
+  font-family: var(--font-heading), Georgia, serif;
+  letter-spacing: 0.4px;
+}
+
+.section-subtitle,
+.hero-subtitle {
+  font-weight: 300;
+  letter-spacing: 0.6px;
+}
+
+/* ── Attention: glowing primary CTA ──────────────────────────────── */
+.btn-primary,
+.nav-book-btn {
+  position: relative;
+  animation: cta-glow 2.6s ease-in-out infinite;
+}
+
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 169, 97, 0.45), 0 6px 22px rgba(201, 169, 97, 0.35); }
+  50% { box-shadow: 0 0 0 9px rgba(201, 169, 97, 0), 0 6px 30px rgba(201, 169, 97, 0.55); }
+}
+
+/* ── Scroll-reveal (only when JS is present — never hides content) ── */
+.js-reveal .service-card,
+.js-reveal .feature-card,
+.js-reveal .review-card,
+.js-reveal .contact-card,
+.js-reveal .highlight-item,
+.js-reveal .tryon-teaser-card,
+.js-reveal .instagram-showcase,
+.js-reveal .women-owned-badge,
+.js-reveal .ig-post-card {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.js-reveal .in-view {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* stagger siblings slightly for a cascade feel */
+.js-reveal .service-card:nth-child(2n),
+.js-reveal .review-card:nth-child(2n),
+.js-reveal .contact-card:nth-child(2n) {
+  transition-delay: 0.08s;
+}
+
+.js-reveal .service-card:nth-child(3n),
+.js-reveal .review-card:nth-child(3n) {
+  transition-delay: 0.16s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal .service-card,
+  .js-reveal .feature-card,
+  .js-reveal .review-card,
+  .js-reveal .contact-card,
+  .js-reveal .highlight-item,
+  .js-reveal .tryon-teaser-card,
+  .js-reveal .instagram-showcase,
+  .js-reveal .women-owned-badge,
+  .js-reveal .ig-post-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .btn-primary,
+  .nav-book-btn,
+  .live-dot.open {
+    animation: none;
+  }
+}
+
+/* ── Mobile: Instagram-style swipeable service cards ─────────────── */
+@media (max-width: 768px) {
+  .services-grid {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    padding: 6px 18px 22px;
+    margin: 0 -18px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .services-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .services-grid .service-card {
+    flex: 0 0 80%;
+    max-width: 320px;
+    scroll-snap-align: center;
+  }
+
+  /* swipe hint under the section subtitle */
+  .services-section .section-subtitle::after {
+    content: '← swipe →';
+    display: block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    letter-spacing: 2.5px;
+    color: var(--primary-gold, #C9A961);
+    opacity: 0.8;
+    animation: swipe-hint 2.2s ease-in-out infinite;
+  }
+
+  @keyframes swipe-hint {
+    0%, 100% { transform: translateX(0); opacity: 0.5; }
+    50% { transform: translateX(7px); opacity: 0.95; }
+  }
+
+  /* roomier hero rhythm on small screens */
+  .hero-buttons {
+    width: 100%;
+  }
+
+  .hero-buttons .btn-primary {
+    width: 100%;
+    padding: 16px 22px;
+    font-size: 1.05rem;
+  }
+
+  .review-cards {
+    grid-template-columns: 1fr;
+  }
+}

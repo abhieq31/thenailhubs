@@ -1,9 +1,26 @@
+import { Playfair_Display, Poppins } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import ChatProvider from '@/components/ChatProvider';
+import ScrollReveal from '@/components/ScrollReveal';
 import '@/styles/globals.css';
 import '@/styles/chat.css';
 import '@/styles/feeds.css';
 import '@/styles/tryon.css';
+
+// Luxury typography, self-hosted by next/font (zero external requests)
+const heading = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-heading',
+  display: 'swap',
+});
+
+const body = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-body',
+  display: 'swap',
+});
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://thenailhubs.vercel.app';
 
@@ -37,7 +54,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${heading.variable} ${body.variable}`}>
       <head>
         <link rel="preconnect" href="https://www.instagram.com" />
         <link rel="preconnect" href="https://www.google.com" />
@@ -45,6 +62,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://storage.googleapis.com" />
       </head>
       <body>
+        <ScrollReveal />
         <div className="App">
           <ChatProvider>{children}</ChatProvider>
         </div>
