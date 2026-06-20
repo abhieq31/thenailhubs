@@ -302,7 +302,7 @@ How can I assist you today?`;
     { label: '🔙 Main Menu', value: 'main_menu' },
   ];
 
-  // ── Live booking flow (talks to the FastAPI backend) ──────────────
+  // ── Live booking flow (talks to the Next.js API routes) ────────────
 
   const apiUnavailable = (intro = "Hmm, I couldn't reach our booking system right now. 😔") => {
     flowRef.current = null;
