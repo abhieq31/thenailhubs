@@ -1323,6 +1323,12 @@ body {
     grid-template-columns: 1fr;
   }
 
+  /* this gutter was meant for the 2-column desktop grid — left over on the
+     single-column mobile stack it pushed the text block off-centre */
+  .about-text {
+    padding-right: 0;
+  }
+
   .about-image {
     height: auto;
     min-height: 450px;
@@ -2944,6 +2950,20 @@ h1, h2, h3, h4,
 
   .review-text {
     font-size: 0.9rem;
+  }
+
+  /* The page was an enormous scroll on phones — 9 full testimonial cards
+     stacked one-per-row. Show the first 4; "Leave a Review" / Google
+     already cover seeing the rest, so nothing is actually lost. */
+  .review-cards .review-card:nth-child(n + 5) {
+    display: none;
+  }
+
+  /* A plain map view doesn't need 500–550px of height to be useful on a
+     narrow phone — unlike the Instagram embeds below, there's no fixed
+     content to clip by showing less of it. */
+  .google-maps-embed iframe {
+    height: 280px;
   }
 
   .review-cta {

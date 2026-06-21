@@ -176,6 +176,13 @@
     gap: 10px;
   }
 
+  /* Cap the live feed at 6 posts on phones instead of all 12 — three full
+     rows of images is already a lot of scroll, and the Instagram profile
+     link covers seeing more. */
+  .ig-posts-grid .ig-post-card:nth-child(n + 7) {
+    display: none;
+  }
+
   .ig-story-ring {
     width: 64px;
     height: 64px;

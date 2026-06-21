@@ -331,6 +331,10 @@
 }
 
 @media (max-width: 640px) {
+  .tryon-teaser {
+    padding: 36px 0;
+  }
+
   .tryon-teaser-card {
     padding: 28px 20px;
   }
