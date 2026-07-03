@@ -13,7 +13,9 @@
 
 ---
 
-This started as a website for a real Ankleshwar, India nail salon — it now runs the salon's actual booking calendar in production. The interesting engineering is in three places: a booking engine that's *provably* free of double-bookings under concurrent writes, a hand-tracking AR effect that runs entirely in the visitor's browser at zero server cost, and a UI that degrades gracefully instead of breaking whenever a dependency (database, Instagram API, Google Places) isn't configured or is unreachable.
+**The mission is the boss, and the mission is small and real: a working salon in Ankleshwar, India needed its calendar to run itself.** It now does — this runs the salon's actual bookings in production.
+
+The engineering follows three operating principles. **Correct by construction:** the booking engine is *provably* free of double-bookings under concurrent writes, because a database constraint — not application code — makes the bad state unrepresentable. **Speed of light:** the AR try-on runs entirely on the visitor's device, so the fastest possible path (no server round-trip) is also the one that costs zero at any scale. **Degrade, never break:** every external dependency (database, Instagram, Google Places) falls back to a gracefully simpler experience instead of a broken page.
 
 ## Status
 
